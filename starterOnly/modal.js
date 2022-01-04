@@ -13,6 +13,10 @@ const modalBtn = document.querySelectorAll(".modal-btn");
 const modalClose = document.querySelector(".close");
 const formData = document.querySelectorAll(".formData");
 
+const modalBody = document.querySelector(".modal-body");
+const modalSuccess = document.querySelector(".modal-success")
+const modalCloseSucess = document.querySelector('.modal-success-close');
+
 const formFirst = document.getElementById('first'); // Get firstname input
 const formLast = document.getElementById('last'); // Get lastname input
 const formEmail = document.getElementById('email'); // Get email input
@@ -34,11 +38,33 @@ function launchModal() {
 }
 
 // close modal event
-modalClose.addEventListener("click", closeModal);
+modalClose.addEventListener("click", function(){
+  closeModal();
+  if(modalbg.classList.contains('formSubmitted')){
+    restartModal();
+  }
+});
+
+modalCloseSucess.addEventListener("click", function(){
+  closeModal();
+  restartModal();
+});
 
 // close modal form
 function closeModal() {
   modalbg.style.display = "none";
+}
+
+function restartModal(){
+  modalbg.classList.remove('formSubmitted');
+  modalBody.style.opacity = "1";
+  modalSuccess.style.display = "none";
+  formFirst.value="";
+  formLast.value="";
+  formEmail.value="";
+  formBirthdate.value="";
+  formQuantity.value="";
+  formLocationCheck.checked = false;
 }
 
 // Ajoute un message d'erreur
@@ -135,10 +161,11 @@ function validate(event){
   formTermsConditionsIsValid();
 
   if(formIsValid){
-    console.log("Inscription envoyée");
+    modalbg.classList.add('formSubmitted');
+    modalBody.style.opacity = "0";
+    modalSuccess.style.display = "flex";
     return true;
   } else{
-    console.log("Inscription Erreur");
     return false;
   }
 }
