@@ -27,7 +27,7 @@ let formLocationCheck = document.querySelector('input[name="location"]:checked')
 const formTermsConditions = document.getElementById('checkbox1'); // Get terms conditions input checkbox
 
 const regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-const regexName = /^[a-z ,.'-]+$/;
+const regexName = /^[a-z-A-Z ,.'-]+$/;
 let formIsValid; // initialize form validation;
 
 // launch modal event
